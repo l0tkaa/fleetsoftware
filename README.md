@@ -1,6 +1,8 @@
 
 # Fleet Repair & Vehicle Loss Minimization
 
+⚠️ Warning: This project is currently under development. Features may be incomplete, data sources may be placeholders, and functionality is not fully tested. Use for learning or experimentation only — do not rely on it for production decisions.
+
 ## Overview
 
 The **Fleet Repair & Vehicle Loss Minimization Idea** is a decision-support tool designed to help manage vehicles and fleets by determining whether to **keep repairing a vehicle** or **sell it before repair costs exceed its value**.  
