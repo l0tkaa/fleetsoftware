@@ -1,0 +1,7 @@
+# requirements.txt
+
+SQLAlchemy>=2.0.20        # ORM for database handling
+pandas>=2.1.1             # For CSV loading and data manipulation
+numpy>=1.27.5             # Monte Carlo sampling and calculations
+python-dotenv>=1.0.1      # Load environment variables from .env
+matplotlib>=3.8.1         # For visualizing simulation results

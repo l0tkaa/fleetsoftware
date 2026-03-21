@@ -81,3 +81,28 @@ Seasonal resale value modeling
 CLI or web dashboard for visualization
 
 Integration with labor/fuel cost estimators for total operating cost
+
+## Other
+
+fleet_optimizer/
+│
+├── main.py                        # Entry point
+├── models/                        # Database models
+│   ├── db.py                      # SQLAlchemy database setup
+│   ├── vehicle.py                 # Vehicle table for Monte Carlo
+│   ├── fleet.py                   # Fleet vehicle table
+│   ├── fuel.py                    # Fuel efficiency table
+│   ├── maintenance.py             # Maintenance log table
+│   └── weather.py                 # Weather data table
+├── simulation/                    # Monte Carlo simulation and sampling
+│   ├── monte_carlo.py             # Core simulation
+│   ├── fuel_model.py              # Fuel cost sampling
+│   ├── maintenance_model.py       # Maintenance cost sampling
+│   └── weather_model.py           # Weather multipliers
+├── services/                      # Analysis / decision logic
+│   ├── decision_engine.py         # Vehicle-level decision
+│   └── fleet_analysis.py          # Fleet-wide analysis
+└── utils/                         # CSV loaders
+    ├── fleet_loader.py
+    ├── fuel_loader.py
+    └── maintenance_loader.py
