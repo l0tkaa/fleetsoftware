@@ -1,26 +1,23 @@
 import numpy as np
-from models.weather import WeatherData
+from simulation.fuel_model import sample_fuel_cost
+from simulation.maintenance_model import sample_maintenance_cost
+from simulation.weather_model import weather_risk_from_db
 
-def weather_risk_from_db(session, size):
+def run_simulation(vehicle, session, num_samples=1000):
     """
-    Returns a weather multiplier array for Monte Carlo simulation.
-    1. Fetches historical weather data
-    2. Uses temperature and precipitation to adjust risk
-    3. Returns array of multipliers of length 'size'
+    Monte Carlo simulation for a single vehicle.
+
+    Steps:
+    1. Sample repair costs uniformly between low/high estimates
+    2. Sample fuel costs based on real fuel records
+    3. Sample maintenance costs based on real maintenance logs
+    4. Multiply total costs by weather risk multipliers
+    5. Return array of total simulated losses
     """
-    records = session.query(WeatherData).all()
-    if not records:
-        return np.ones(size)  # no effect
+    repair_costs = np.random.uniform(vehicle.repair_cost_low, vehicle.repair_cost_high, num_samples)
+    fuel_costs = sample_fuel_cost(session, vehicle, num_samples)
+    maintenance_costs = sample_maintenance_cost(session, vehicle.id, num_samples)
+    weather_multiplier = weather_risk_from_db(session, num_samples)
 
-    temps = [r.avg_temp for r in records]
-    precips = [r.precipitation for r in records]
-
-    avg_temp = np.mean(temps)
-    avg_precip = np.mean(precips)
-
-    # heat increases risk slightly
-    heat_factor = np.random.normal(1.08, 0.02, size) if avg_temp > 90 else np.ones(size)
-    # heavy precipitation increases risk
-    storm_factor = np.random.normal(1.10, 0.05, size) if avg_precip > 2 else np.ones(size)
-
-    return heat_factor * storm_factor
+    total_losses = (repair_costs + fuel_costs + maintenance_costs) * weather_multiplier
+    return total_losses
