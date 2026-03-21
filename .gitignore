@@ -10,3 +10,5 @@ __pycache__/
 
 # Ignore database file if local
 fleet.db
+
+.env
