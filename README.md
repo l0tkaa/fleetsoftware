@@ -84,6 +84,7 @@ Integration with labor/fuel cost estimators for total operating cost
 
 ## Other
 
+```
 fleet_optimizer/
 │
 ├── main.py                        # Entry point
@@ -106,3 +107,4 @@ fleet_optimizer/
     ├── fleet_loader.py
     ├── fuel_loader.py
     └── maintenance_loader.py
+```
